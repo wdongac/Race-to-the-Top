@@ -6,6 +6,7 @@ import sys
 import random
 import cplex
 import numpy as np
+import time
 
 
 
@@ -69,14 +70,23 @@ def RunAlgorithm():
     max_i = int(math.log(global_sensitivity,base))+1
     res = []
     for i in range(1,max_i+1):
-        tau = math.pow(math.e,i)
+        tau = math.pow(base,i)
         t_res = 0
         if tau>=downward_sensitivity:
             t_res = num_connections
         else:   
             t_res = LPSolver(tau)
-        res.append(t_res+LapNoise()*math.pow(base,i)/epsilon*max_i-math.pow(base,i)/epsilon*max_i*math.log(max_i/beta,math.e))
-    return max(res)
+        res.append(t_res+LapNoise()*tau/epsilon*max_i-tau/epsilon*max_i*math.log(max_i/beta,math.e))
+    max_ind = 1
+    max_val = 0
+    for i in range(1,max_i+1):
+        if res[i-1]>max_val:
+            max_val = res[i-1]
+            max_ind = i
+    tau = math.pow(base,max_ind)
+    final_res = max_val+tau/epsilon*max_i*math.log(max_i/beta,math.e)
+    print(tau)
+    return final_res
 
       
 
@@ -139,9 +149,12 @@ def main(argv):
             beta = float(arg)
         elif opt in ("-G","--GlobalSensitivity"):
             global_sensitivity = float(arg)
+    start = time.time()
     ReadInput()
     res = RunAlgorithm()
+    end= time.time()
     print(res)
+    print(end-start)
     
 	
 

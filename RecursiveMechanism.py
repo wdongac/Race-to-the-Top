@@ -5,6 +5,7 @@ import getopt
 import cplex
 import numpy as np
 import math
+import time
 import random
 
 
@@ -26,7 +27,7 @@ def ReadInput():
     global connections
     id_dic = {}
     id_num = 0
-    
+
     #The variable is repsented one entity
     #We use connection to show the connections between entity and query results
     tuples = []
@@ -266,9 +267,11 @@ def main(argv):
         elif opt in ("-d","--delta"):
             delta = float(arg)
     
+    start = time.time()
     ReadInput()
     RunRecursive()
-
+    end= time.time()
+    print(end-start)
 
 
 if __name__ == "__main__":
