@@ -7,7 +7,7 @@ import random
 
 
 
-def ReadFile():
+def ReadInput():
     global input_file_path
     global size_dic
     size_dic = {}
@@ -45,11 +45,11 @@ def RunAlgorithm():
     
     
 
-def LP(T):
+def LP(tau):
     global size_dic
     res = 0
     for element in size_dic.keys():
-        res += min(T,size_dic[element])
+        res += min(tau,size_dic[element])
     return res
 
 
@@ -77,7 +77,7 @@ def main(argv):
             beta = float(arg)
         elif opt in ("-G","--GlobalSensitivity"):
             global_sensitivity = float(arg)
-    ReadFile()
+    ReadInput()
     res = RunAlgorithm()
     print(res)
     
