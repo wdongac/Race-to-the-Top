@@ -43,13 +43,17 @@ def RewriteQuery():
     where_strings = parser_strings[2]
     renaming_private_relations=[]
     #Extract the renaming information for relation part
-    relations_strings=from_strings.replace(",","\n")
+    relations_strings = from_strings.replace(",","\n")
     relations_strings = relations_strings.split("\n")
+
     #For each renaming
     for relations_string in relations_strings:
         relations_string = relations_string.split()
         origin_relation = relations_string[0]
-        renaming_relation = relations_string[2]
+        if len(relations_string)>1:
+            renaming_relation = relations_string[2]
+        else:
+            renaming_relation = relations_string[0]
         if origin_relation==private_relation_name:
             renaming_private_relations.append(renaming_relation)
             
