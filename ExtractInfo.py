@@ -99,8 +99,10 @@ def ExtractRelationship():
                results.write(str(num_id)+" ")
                num_id+=1
         results.write("\n")
-
-        
+    con.commit()
+    con.close()
+    
+    
 
 def main(argv):
     global database_name
