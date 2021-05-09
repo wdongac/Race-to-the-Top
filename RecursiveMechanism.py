@@ -36,7 +36,7 @@ def ReadInput():
     for line in input_file.readlines():
         elements = line.split()
         connection = []
-        for element in elements:
+        for element in elements[1:]:
             element = int(element)
             #Re-order the IDs
             if element in id_dic.keys():

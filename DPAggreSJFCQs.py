@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import getopt
 import math
 import sys
 import random
+import time
 
 
 
@@ -14,11 +14,12 @@ def ReadInput():
     input_file = open(input_file_path,'r')
     for line in input_file.readlines():
         elements = line.split()
-        element = elements[0]
-        if element in size_dic.keys():
-            size_dic[element]+=1
+        value = float(elements[0])
+        entity = int(elements[0])
+        if entity in size_dic.keys():
+            size_dic[entity] += value
         else:
-            size_dic[element] = 1
+            size_dic[entity] = value
     
     
     
@@ -35,13 +36,19 @@ def LapNoise():
 
 def RunAlgorithm():
     global global_sensitivity
+    global beta
     base = math.e
     max_i = int(math.log(global_sensitivity,base))+1
-    res = []
+    max_res1 = -10000000
+    max_res2 = 0
     for i in range(1,max_i+1):
         tau = math.pow(math.e,i)
-        res.append(LP(tau)+LapNoise()*math.pow(base,i)/epsilon*max_i-math.pow(base,i)/epsilon*max_i*math.log(max_i/beta,math.e))
-    return max(res)
+        t_res2 = LP(tau)+LapNoise()*math.pow(base,i)/epsilon*max_i
+        t_res1 = t_res2 - math.pow(base,i)/epsilon*max_i*math.log(max_i/beta,math.e)
+        if t_res1>max_res1:
+            max_res1 = t_res1
+            max_res2 = t_res2
+    return max_res2
     
     
 
@@ -55,19 +62,26 @@ def LP(tau):
 
 
 def main(argv):
+    #The input file including the relationships between aggregations and base tuples
     global input_file_path
+    input_file_path = ""
+    #Privacy budget
     global epsilon
+    epsilon = 0.1
+    #Error probablity: with probablity at least 1-beta, the error can be bounded
     global beta
+    beta = 0.01
+    #The global sensitivity
     global global_sensitivity
-	
+    global_sensitivity = 1000000
     try:
         opts, args = getopt.getopt(argv,"h:I:e:b:G:",["Input=","epsilon=","beta=","GlobalSensitivity="])
     except getopt.GetoptError:
-        print("OurMechanismSJF.py -I <input file> -e <epsilon> -b <beta> -G <global sensitivity>")
+        print("DPAggreSJF.py -I <input file> -e <epsilon(default 0.1)> -b <beta(default 0.01)> -G <global sensitivity(default 1000,000)>")
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print("OurMechanismSJF.py -I <input file> -e <epsilon> -b <beta> -G <global sensitivity>")
+            print("DPAggreSJF.py -I <input file> -e <epsilon(default 0.1)> -b <beta(default 0.01)> -G <global sensitivity(default 1000,000)")
             sys.exit()
         elif opt in ("-I", "--Input"):
             input_file_path = str(arg)
@@ -77,9 +91,14 @@ def main(argv):
             beta = float(arg)
         elif opt in ("-G","--GlobalSensitivity"):
             global_sensitivity = float(arg)
+    start = time.time()
     ReadInput()
     res = RunAlgorithm()
+    end= time.time()
+    print("Result")
     print(res)
+    print("Time")
+    print(end-start)
     
 	
 
