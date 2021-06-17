@@ -6,7 +6,6 @@
     * [Tools](#tools)
     * [Python Dependency](#python-dependency)
     * [Create PostgreSQL Database](#create-postgresql-database)
-    * [Import and Clean Data](#import-and-clean-data)
 * [Demo System](#demo-system)
 * [Demo Collecting Experimental Results](#demo-collecting-experimental-results)
 	* [R2T Algorithm](#r2t-algorithm)
