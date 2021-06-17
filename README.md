@@ -6,9 +6,10 @@
     * [Tools](#tools)
     * [Python Dependency](#python-dependency)
     * [Create PostgreSQL Database](#create-postgresql-database)
+    * [Import and Clean Data](#import-and-clean-data)
 * [Demo System](#demo-system)
-* [Demo Collecting Experimental Results](#demo-baseline-algorithm)
-	* [R2T Algorithm](#r2t-algorithms)
+* [Demo Collecting Experimental Results](#demo-collecting-experimental-results)
+	* [R2T Algorithm](#r2t-algorithm)
 	* [Naive Truncation with Smooth Sensitivity](#naive-truncation-with-smooth-sensitivity)
 	* [Smooth Distance Estimator](#smooth-distance-estimator)
 	* [LP-based Mechanism](#lp-based-mechanism)
@@ -26,6 +27,9 @@ The file structure is as below
 project
 │   README.md
 └───Code
+└───Data
+│   └───Graph
+│   └───TPCH
 └───Figure
 └───Information
 │   └───Graph
@@ -38,6 +42,9 @@ project
 └───Temp
 ```
 `./Code` stores the codes.
+`./Data` stores the relations of the graph and TPCH datasets.
+* `./Information/Graph` and `./Information/TPCH` store the relations for graph and TPCH datasets repectively. Only scale \_0 is uploaded here. Datasets with other scales, i.e. \_1 \~ \_6, can be found at ???.
+
 `./Figure` stores the figures used in the paper.
 `./Information` stores the information between base table tuples and joined results for all queries.
 * `./Information/Graph` and `./Information/TPCH` store the information for sub-graph counting querie and TPCH querys repectively.
@@ -70,8 +77,32 @@ Here are dependencies used in python codes:
 * `psycopg2`
 
 ### Create PostgreSQL Database
+To create an empty PostgreSQL database, for example, named "Deezer", run
+```
+createdb Deezer;
+```
 
-#### Import Data
+#### Import and Clean Data
+To import/clean graph data into PostgreSQL database, go to `./Script` and run `ProcessGraphData.py`. There are three parameters
+ - `-d`: the name of graph dataset;
+ - `-D`: the name of PostgreSQL database;
+ - `-m`: the option of importing(0)/cleaning(1) data in the database;
+
+To import/clean TPCH data into PostgreSQL database, go to `./Script` and run `ProcessTPCHData.py`. There are four parameters
+ - `-d`: the name of TPCH dataset;
+ - `-D`: the name of PostgreSQL database;
+ - `-m`: the option of importing(0)/cleaning(1) data in the database;
+ - `-r`: the path of file containing the name(s) of the primary private relation(s). The ones used in the paper can be found in `./Query`;
+
+For example, to import TPCH dataset with scale \_0 into database named "sc\_0" having primary private relations SUPPLIER and CUSTOMER, run
+```sh
+python ProcessTPCHData.py -d _0 -D sc_0 -m 0 -r ../Query/sc.txt
+```
+
+To clean database named "Deezer", run
+```sh
+python ProcessGraphData.py -D Deezer -m 1
+```
 
 ## Demo System
 Here, we implement a demo version for R2T system with PostgreSQL. Currently, the system support the self-join query with single private relation. For the case with multiple primary private relations, please refer to our paper to write it to a query with single private relation. Currently, the system supports the selection but not the projection, which will be finished in the meta version. The inputs here are a query and a set of private parameters like privacy budget, the primary private relation and the output here is a noised query result. 
@@ -80,7 +111,7 @@ To run the system, go to `./Script` and run `System.py`. There are eight paramet
  - `-D`: the name of PostgreSQL database;
  - `-Q`: the path of input query file. Here, we provide the experimental queries used in the paper in `./Query`;
  - `-P`: the name of primary private relation;
- - `-K`: the path of file containing the primary key of the primary private relation. Here, we also provate the ones used in the paper in `./Query`;
+ - `-K`: the path of file containing the primary key of the primary private relation. Here, we also provide the ones used in the paper in `./Query`;
  - `-e`: privacy budget epsilon;
  - `-b`: the parameter beta, which controls the probablity of large error happening;
  - `-G`: the predefined global sensitivity.
@@ -96,11 +127,28 @@ python System.py -D so_0 -Q ../Query/Q21.txt -P ids -K ../Query/Q21_key.txt -e 0
 ### R2T Algorithm
 
 ### Naive Truncation with Smooth Sensitivity
+To collect the experimental results of naive truncation with smooth sensitivity with settings in the paper, go to `./Script` and run `CollectResultsNT.py`. There is one parameter
+ - `-G`: the name of graph. The given choices include Deezer, Amazon1, Amazon2, RoadnetPA and RoadnetCA;
+
+For example, we collect the results for Deezer with 
+```
+python CollectResultsNT.py -G Deezer
+```
 
 ### Smooth Distance Estimator
+To collect the experimental results of smooth distance estimator with settings in the paper, go to `./Script` and run `CollectResultsSDE.py`. There is one parameter
+ - `-G`: the name of graph. The given choices include Deezer, Amazon1, Amazon2, RoadnetPA and RoadnetCA;
+
+For example, we collect the results for Deezer with 
+```
+python CollectResultsSDE.py -G Deezer
+```
 
 ### LP-based Mechanism
 
-### Recursive Mechansim
+### Recursive Mechanism
 
 ### Local-sensitivity based Mechanism
+There are three types of experiments for local-sensitivity based mechanism in the paper, 1) changing privacy budget epsilon, 2) changing scale of database and 3) changing predefined global sensitivity.
+
+For 1), go to `./Script` and run `CollectResultsLS.py`. For 2), run `CollectResultsLSScalability.py` in `./Script`, and for 3) run `CollectResultsLSGS.py` in `./Script`.
