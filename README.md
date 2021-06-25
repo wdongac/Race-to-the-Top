@@ -5,6 +5,7 @@
 * [Prerequisites](#prerequisites)
     * [Tools](#tools)
     * [Python Dependency](#python-dependency)
+    * [Download Data](#download-data)
     * [Create PostgreSQL Database](#create-postgresql-database)
 * [Demo System](#demo-system)
 * [Demo Collecting Experimental Results](#demo-collecting-experimental-results)
@@ -76,6 +77,11 @@ Here are dependencies used in python codes:
 * `os`
 * `math`
 * `psycopg2`
+
+### Download Data
+Download two data packages ([Graph](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing) and [TPCH](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing)) and unzip them in `./Data`.
+
+Download two packages containing the relationships between base table tuples and join results ([Graph](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing) and [TPCH](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing)) and unzip them in `./Information`.
 
 ### Create PostgreSQL Database
 To create an empty PostgreSQL database, for example, named "Deezer", run
