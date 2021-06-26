@@ -66,7 +66,7 @@ def main(argv):
             time_R2T[i][j]+=time_extract[3+i][j]
             time_LS[i][j]+=time_extract[3+i][j]
     x=[0.125,0.25,0.5,1,2,4,8]
-    fig, axes = plt.subplots(2,3, figsize=(24, 6))
+    fig, axes = plt.subplots(2,3, figsize=(24, 7))
     
     axes[0][0].tick_params(axis='both', which='major', labelsize=15)
     axes[0][0].axhline(y=10000000,ls="-",c=plt.cm.tab20c(19))

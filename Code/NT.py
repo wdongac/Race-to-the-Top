@@ -115,8 +115,7 @@ def Truncation():
 		if size_dic[connection[0]] <= theta and size_dic[connection[1]] <= theta:
 			connections_truncated.append(connection)
 
-	cur_path = os.getcwd()
-	output_file_path = cur_path + "/../Temp/nt_" + input_file_path[len(input_file_path) - list(reversed(input_file_path)).index('/') : -4] + "_" + str(theta) + ".txt"
+	output_file_path = input_file_path[ : input_file_path.rfind('/')] + "/../../../Temp/nt_" + input_file_path[input_file_path.rfind('/') + 1 : ] + "_" + str(theta) + ".txt"
 	output_file = open(output_file_path,'w')
 
 	for connection in connections_truncated:
@@ -179,6 +178,7 @@ def RunAlgorithm():
 	global epsilon
 	global theta
 	global max_degree
+	global ss
 
 	Truncation()
 
@@ -204,6 +204,7 @@ def main(argv):
 	global k
 	global database_name
 	global real_ans
+	global ss
 	
 	try:
 		opts, args = getopt.getopt(argv,"h:I:e:t:k:D:",["Input=","epsilon=","theta=","k=","D="])
@@ -235,8 +236,8 @@ def main(argv):
 
 	print("Query Result")
 	print(real_ans)
-	print("Noised Result")
-	print(res)
+	print("Smooth Sensitivity")
+	print(ss)
 	print("Time")
 	print(end - start)
 

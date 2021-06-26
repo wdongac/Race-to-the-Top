@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-import math
 import sys
 import getopt
-import random
 import cplex
 import numpy as np
 import time
@@ -23,22 +21,21 @@ def main(argv):
     global time_repeat
     global error_repeat
     time_repeat = 10
-    error_repeat = 10
     cur_path=os.getcwd()
     Q = ["one_path","triangle","two_path", "rectangle"]
-    Data = ["4","10","16","17","19"]
-    max_degree = [1024,512,16,16,512]
+    Data = ["Amazon2","Amazon1","RoadnetPA","RoadnetCA","Deezer"]
+    max_degree = [1024,1024,16,16,1024]
     q_pow = [1,2,2,3]
     i=0
     j=0
     try:
         opts, args = getopt.getopt(argv,"h:Q:D:",["QueryId=","DataId="])
     except getopt.GetoptError:
-        print("CollectResultsLPAllTau.py -Q <Query Id: 0(one_path)/1(triangle)/2(two_path)/3(rectangle)> -D <Data Id: 0(network4)/1(network10)/2(network16)/3(network17)/4(network19)>")
+        print("CollectResultsLPAllTau.py -Q <Query Id: 0(one_path)/1(triangle)/2(two_path)/3(rectangle)> -D <Data Id: 0(Amazon2)/1(Amazon1)/2(RoadnetPA)/3(RoadnetCA)/4(Deezer)>")
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print("CollectResultsLPAllTau.py -Q <Query Id: 0(one_path)/1(triangle)/2(two_path)/3(rectangle)> -D <Data Id: 0(network4)/1(network10)/2(network16)/3(network17)/4(network19)>")
+            print("CollectResultsLPAllTau.py -Q <Query Id: 0(one_path)/1(triangle)/2(two_path)/3(rectangle)> -D <Data Id: 0(Amazon2)/1(Amazon1)/2(RoadnetPA)/3(RoadnetCA)/4(Deezer)>")
             sys.exit()
         elif opt in ("-Q", "--QueryId"):
             j = int(arg)
@@ -86,17 +83,6 @@ def ReadInput(input_file_path):
                 downward_sensitivity = size_dic[element];                
             connection.append(element)
         connections.append(connection)
-
-
-
-def LapNoise():
-    a = random.uniform(0,1)
-    b = math.log(1/(1-a))
-    c = random.uniform(0,1)
-    if c>0.5:
-        return b
-    else:
-        return -b
     
     
 
@@ -140,10 +126,10 @@ def Process(i,j,cur_path):
     global time_repeat
     global error_repeat
     global real_query_result
-    ReadInput(cur_path+"/../Information/Graph/"+Q[j]+"/network"+Data[i]+".txt")
+    ReadInput(cur_path+"/../Information/Graph/"+Q[j]+"/"+Data[i]+".txt")
     GS = pow(max_degree[i],q_pow[j])
     tau = GS
-    while(tau>2):
+    while(tau>=2):
         print(str(tau))
         used_time = 0
         res = 0
@@ -154,14 +140,8 @@ def Process(i,j,cur_path):
             used_time+=end-start
         used_time/=time_repeat
         print("Time: "+str(used_time))
-        print("Query result: "+str(real_query_result))    
-        for k in range(8):
-            err = 0
-            e = 0.1*pow(2,k)
-            for i in range(error_repeat):
-                err += abs(real_query_result-res-LapNoise()*tau/e)
-            err = err/error_repeat
-            print(str(e)+" "+str(err))
+        print("Query result: "+str(real_query_result))
+        print("LP result: "+str(res))
         tau/=2
 
 

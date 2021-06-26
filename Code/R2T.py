@@ -130,9 +130,11 @@ def RunAlgorithm():
     global early_stops
     global global_max
     #Base of Log function
-    base = 6
+    base = 5.5
     #The number of all tau's
-    max_i = int(math.log(global_sensitivity,base))+1
+    max_i = int(math.log(global_sensitivity,base))
+    if max_i<=1:
+        max_i+=1
     #Used to store the results
     #The Q(I,tau)
     Q_tau = {}
@@ -163,7 +165,7 @@ def RunAlgorithm():
         #Add the noise
         hat_Q_tau[i] = LapNoise()*tau/epsilon*max_i*(approximate_factor+1)
         #Add the noise and the factor
-        tilde_Q_tau[i] = hat_Q_tau[i]-tau/epsilon*max_i*math.log(max_i/beta,3.5)*(approximate_factor+1)
+        tilde_Q_tau[i] = hat_Q_tau[i]-tau/epsilon*max_i*math.log(max_i/beta)*(approximate_factor+1)
         primals[i] = 0
         duals[i] = 10*real_query_result
         stop_duals[i] = 0

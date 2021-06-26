@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import getopt
 import math
@@ -73,7 +72,7 @@ def ThresholdRunAlgorithm(epsilon,beta,base, max_i, downward_sensitivity, real_q
             t_res = LPSolver(tau)
         Q_tau[i] = t_res
         hat_Q_tau[i] = t_res+LapNoise()*tau/epsilon*max_i
-        tilde_Q_tau[i] = hat_Q_tau[i]-tau/epsilon*max_i*math.log(max_i/beta,3.5)
+        tilde_Q_tau[i] = hat_Q_tau[i]-tau/epsilon*max_i*math.log(max_i/beta,2.9718)
         
     
 
@@ -88,8 +87,10 @@ def RunAlgorithm():
     global beta
     global real_query_result
     
-    base = 6
-    max_i = int(math.log(global_sensitivity,base))+1
+    base = 5.5
+    max_i = int(math.log(global_sensitivity,base))
+    if max_i<=1:
+        max_i+=1
     real_query_result = len(connections)
 
     #Used to store the results

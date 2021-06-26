@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
 import os
@@ -23,8 +22,8 @@ def main(argv):
     max_degree = manager.list()
     q_pow = manager.list()
     Q = ["one_path","triangle","two_path", "rectangle"]
-    Data = ["4","10","16","17","19"]
-    max_degree = [1024,512,16,16,512]
+    Data = ["Amazon2","Amazon1","RoadnetPA","RoadnetCA","Deezer"]
+    max_degree = [1024,1024,16,16,1024]
     q_pow = [1,2,2,3]
     queries = manager.list()
     times = manager.list()
@@ -57,8 +56,6 @@ def main(argv):
         assigned_k.append([])
     start_id = 0
     for i in range(len(Data)):
-        if i!= 1:
-            continue
         for j in range(len(Q)):
             for k in range(8):
                 for f in range(repeat_time):
@@ -74,13 +71,10 @@ def main(argv):
     for i in range(threads_num):
         threads[i].join()
     for i in range(len(Data)):
-        if i!= 1:
-            continue
         for j in range(len(Q)):
-            output_file = cur_path+"/../Result/Graph/R2T_"+str(Q[j])+"_network"+Data[i]+".txt"
+            output_file = cur_path+"/../Result/Graph/R2T_"+str(Q[j])+"_"+Data[i]+".txt"
             output = open(output_file, 'w')
             for k in range(8):
-                print(str(i)+" "+str(j)+" "+str(k))
                 times[i][j][k] /= repeat_time
                 results[i][j][k].sort()
                 res = sum(results[i][j][k])-results[i][j][k][0]-results[i][j][k][1]-results[i][j][k][repeat_time-1]-results[i][j][k][repeat_time-2]
@@ -104,12 +98,12 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         k = assigned_k[l]
         print(str(i)+" "+str(j)+" "+str(k))
         #Create a new file
-        cmd = "cp "+cur_path+"/../Information/Graph/"+Q[j]+"/network"+Data[i]+".txt "+cur_path+"/../Temp/"+Q[j]+"_network"+Data[i]+"_"+str(thread_id)+".txt"
+        cmd = "cp "+cur_path+"/../Information/Graph/"+Q[j]+"/"+Data[i]+".txt "+cur_path+"/../Temp/"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
         shell = os.popen(cmd, 'r')
         shell.read()
         shell.close()
         #Collect the result for algorithm
-        cmd = cur_path+"/../../dw_python "+cur_path+"/../Code/R2T.py -I "+cur_path+"/../Temp/"+Q[j]+"_network"+Data[i]+"_"+str(thread_id)+".txt"
+        cmd = cur_path+"python "+cur_path+"/../Code/R2T.py -I "+cur_path+"/../Temp/"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
         cmd = cmd+" -b 0.1 -e "+str(pow(2,k)*0.1)+" -G "+str(pow(max_degree[i],q_pow[j]))+" -p 10"
         shell = os.popen(cmd, 'r')
         res = shell.read()
@@ -122,7 +116,7 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         times[i][j][k] = times[i][j][k]+c
         shell.close()
         #Remove the new file
-        cmd = "rm "+cur_path+"/../Temp/"+Q[j]+"_network"+Data[i]+"_"+str(thread_id)+".txt"
+        cmd = "rm "+cur_path+"/../Temp/"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
         shell = os.popen(cmd, 'r')
         shell.read()
         shell.close()  

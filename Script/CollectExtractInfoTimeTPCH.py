@@ -20,7 +20,7 @@ def main(argv):
             for k in range(repeat_time):
                 print(str(i)+" "+str(j)+" "+str(k))
                 start = time.time()
-                cmd = cur_path+"/../../dw_python "+cur_path+"/../Code/ExtractInfo.py -D "+DB[j]+"_"+S[i]+" -Q "+cur_path+"/../Query/Q"+str(Q[j])+".txt -K "+cur_path+"/../Query/Q"+str(Q[j])
+                cmd = cur_path+"python "+cur_path+"/../Code/ExtractInfo.py -D "+DB[j]+"_"+S[i]+" -Q "+cur_path+"/../Query/Q"+str(Q[j])+".txt -K "+cur_path+"/../Query/Q"+str(Q[j])
                 cmd = cmd+"_key.txt -P "+P[j]+" -O "+cur_path+"/../Temp/temp.txt"
                 shell = os.popen(cmd, 'r')
                 shell.read()

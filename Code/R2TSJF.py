@@ -40,13 +40,15 @@ def LapNoise():
 def RunAlgorithm():
     global global_sensitivity
     global beta
-    base = 6
-    max_i = int(math.log(global_sensitivity,base))+1
+    base = 5.5
+    max_i = int(math.log(global_sensitivity,base))
+    if max_i<=1:
+        max_i+=1
     max_res1 = -10000000
     for i in range(1,max_i+1):
         tau = math.pow(base,i)
         t_res2 = LP(tau)+LapNoise()*math.pow(base,i)/epsilon*max_i
-        t_res1 = t_res2 - math.pow(base,i)/epsilon*max_i*math.log(max_i/beta,3.5)
+        t_res1 = t_res2 - math.pow(base,i)/epsilon*max_i*math.log(max_i/beta,2.9718)
         if t_res1>max_res1:
             max_res1 = t_res1
     return max_res1

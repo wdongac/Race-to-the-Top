@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
 import os
@@ -9,7 +8,7 @@ manager = multiprocessing.Manager()
 
 def main(argv):
     repeat_time = 10
-    threads_num = 10
+    threads_num = 1
     global S
     global Q
     global GS
@@ -23,13 +22,11 @@ def main(argv):
     GS = manager.list()
     SJ = manager.list()
     S = ["0","1","2","3","4","5","6"]
-    S = ["0","1"]
-    Q = [5,8,21,3,12,20,10,7,11,18]
-    Q = [5]
-    GS = [100000,1000000,1000000,1000000,1000000,1000000,1000000,100000000,1000000,100000000]
-    for i in range(len(GS)):
-        GS[i] = GS[i]/8
-    SJ = [1,1,1,0,0,0,0,1,0,0]
+    Q = [3,12,20]
+    GS = []
+    for i in range(len(Q)):
+        GS.append(1000000)
+    SJ = [0,0,0]
     queries = manager.list()
     times = manager.list()
     results = manager.list()
@@ -80,10 +77,8 @@ def main(argv):
         output = open(output_file, 'w')
         for i in range(len(S)):
             for k in range(1):
-                print(str(i)+" "+str(j)+" "+str(k))
                 times[i][j][k] /= repeat_time
                 results[i][j][k].sort()
-                print(results[i][j][k])
                 res = sum(results[i][j][k])-results[i][j][k][0]-results[i][j][k][1]-results[i][j][k][repeat_time-1]-results[i][j][k][repeat_time-2]
                 res = res/(repeat_time-4)
                 output.write(str(1/8*pow(2,i))+" "+str(queries[i][j])+" "+str(res)+" "+str(times[i][j][k])+"\n")
@@ -105,16 +100,16 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         k = assigned_k[l]
         print(str(i)+" "+str(j)+" "+str(k))
         #Create a new file
-        cmd = "cp "+cur_path+"/../Information/TPCH/Q"+str(Q[j])+"_"+S[i]+".txt "+cur_path+"/../Temp/Q"+str(Q[j])+"_"+S[i]+"_"+str(thread_id)+".txt"
+        cmd = "cp "+cur_path+"/../Information/TPCH/Q"+str(Q[j])+"_"+S[i]+".txt "+cur_path+"/../Temp/ScalabilityQ"+str(Q[j])+"_"+S[i]+"_"+str(thread_id)+".txt"
         shell = os.popen(cmd, 'r')
         shell.read()
         shell.close()
         #Collect the result for algorithm
-        cmd = cur_path+"/../../dw_python "+cur_path+"/../Code/R2T"
+        cmd = cur_path+"python "+cur_path+"/../Code/R2T"
         if SJ[j]==0:
             cmd = cmd+"SJF"
-        cmd = cmd+".py -I "+cur_path+"/../Temp/Q"+str(Q[j])+"_"+S[i]+"_"+str(thread_id)+".txt"
-        cmd = cmd+" -b 0.1 -e "+str(pow(2,k)*0.8)+" -G "+str(GS[j]*pow(2,i))
+        cmd = cmd+".py -I "+cur_path+"/../Temp/ScalabilityQ"+str(Q[j])+"_"+S[i]+"_"+str(thread_id)+".txt"
+        cmd = cmd+" -b 0.1 -e "+str(pow(2,k)*0.8)+" -G "+str(GS[j])
         if SJ[j]==1:
             cmd = cmd+" -p 10"
         shell = os.popen(cmd, 'r')
@@ -128,7 +123,7 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         times[i][j][k] = times[i][j][k]+c
         shell.close()
         #Remove the new file
-        cmd = "rm "+cur_path+"/../Temp/Q"+str(Q[j])+"_"+S[i]+"_"+str(thread_id)+".txt"
+        cmd = "rm "+cur_path+"/../Temp/ScalabilityQ"+str(Q[j])+"_"+S[i]+"_"+str(thread_id)+".txt"
         shell = os.popen(cmd, 'r')
         shell.read()
         shell.close()         

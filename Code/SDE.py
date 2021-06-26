@@ -154,8 +154,7 @@ def Truncation():
 		if projections[connection[0]] < 0.25 and projections[connection[1]] < 0.25:
 			connections_truncated.append(connection)
 
-	cur_path = os.getcwd()
-	output_file_path = cur_path + "/../Temp/sde_" + input_file_path[len(input_file_path) - list(reversed(input_file_path)).index('/') : -4] + "_" + str(theta) + ".txt"
+	output_file_path = input_file_path[ : input_file_path.rfind('/')] + "/../../../Temp/sde_" + input_file_path[input_file_path.rfind('/') + 1 : ] + "_" + str(theta) + ".txt"
 	output_file = open(output_file_path,'w')
 
 	for connection in connections_truncated:
@@ -203,8 +202,6 @@ def Count():
 	con.commit()
 	con.close()
 
-	os.remove(output_file_path)
-
 	real_ans = num
 
 	return real_ans
@@ -212,6 +209,7 @@ def Count():
 def RunAlgorithm():
 	global epsilon
 	global projections
+	global s_max
 
 	base = math.e
 	beta = epsilon / 10
@@ -245,15 +243,21 @@ def main(argv):
 	global k
 	global database_name
 	global real_ans
+	global s_max
+	global model
+	global projections
+	global output_file_path
+
+	model = 0
 	
 	try:
-		opts, args = getopt.getopt(argv,"h:I:e:t:k:D:",["Input=","epsilon=","theta=","k=","D="])
+		opts, args = getopt.getopt(argv,"h:I:e:t:k:D:m:",["Input=","epsilon=","theta=","k=","D=","m="])
 	except getopt.GetoptError:
-		print("SDE.py -I <input file> -e <epsilon> -t <theta> -k <k> -D <database>")
+		print("SDE.py -I <input file> -e <epsilon> -t <theta> -k <k> -D <database> -m <model:0(all)1(solve lp)/2(count)>")
 		sys.exit(2)
 	for opt, arg in opts:
 		if opt == "-h":
-			print("SDE.py -I <input file> -e <epsilon> -t <theta> -k <k> -D <database>")
+			print("SDE.py -I <input file> -e <epsilon> -t <theta> -k <k> -D <database>  -m <model:0(all)1(solve lp)/2(count)>")
 			sys.exit()
 		elif opt in ("-I", "--Input"):
 			input_file_path = str(arg)
@@ -265,21 +269,55 @@ def main(argv):
 			k = int(arg)
 		elif opt in ("-D","--Database"):
 			database_name = str(arg)
+		elif opt in ("-m","--model"):
+			model = int(arg)
 
-	start = time.time()
+	if model == 0:
+		start = time.time()
 
-	ReadInput()
+		ReadInput()
 
-	res = RunAlgorithm()
+		res = RunAlgorithm()
 
-	end= time.time()
+		end= time.time()
 
-	print("Query Result")
-	print(real_ans)
-	print("Noised Result")
-	print(res)
-	print("Time")
-	print(end - start)
+		print("Query Result")
+		print(real_ans)
+		print("Noisy Result")
+		print(res)
+		print("Time")
+		print(end - start)
+
+	elif model == 1:
+		start = time.time()
+
+		ReadInput()
+
+		projections, distance_estimator = LPSolver()
+
+		Truncation()
+
+		end= time.time()
+
+		print("Distance Estimator")
+		print(distance_estimator)
+		print("Time")
+		print(end - start)
+
+	elif model == 2:
+		output_file_path = input_file_path[ : input_file_path.rfind('/')] + "/../../../Temp/sde_" + input_file_path[input_file_path.rfind('/') + 1 : ] + "_" + str(theta) + ".txt"
+		
+		start = time.time()
+
+		res = Count()
+
+		end= time.time()
+
+		print("Count")
+		print(res)
+
+		print("Time")
+		print(end - start)
 
 if __name__ == "__main__":
 	main(sys.argv[1:])

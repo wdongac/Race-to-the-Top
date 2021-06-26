@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
 import os
@@ -9,7 +8,7 @@ manager = multiprocessing.Manager()
 
 def main(argv):
     repeat_time = 10
-    threads_num = 10
+    threads_num = 5
     global Data
     global Q
     global max_degree
@@ -23,7 +22,7 @@ def main(argv):
     max_degree = manager.list()
     q_pow = manager.list()
     Q = ["one_path","triangle","two_path", "rectangle"]
-    Data = ["4","10","16","17","19"]
+    Data = ["Amazon2","Amazon1","RoadnetPA","RoadnetCA","Deezer"]
     max_degree = [1024,512,16,16,512]
     q_pow = [1,2,2,3]
     queries = manager.list()
@@ -83,7 +82,7 @@ def main(argv):
         for j in range(len(Q)):
             if j!=3:
                 continue
-            output_file = cur_path+"/../Result/Graph/R2TOld_"+str(Q[j])+"_network"+Data[i]+".txt"
+            output_file = cur_path+"/../Result/Graph/R2TOld_"+str(Q[j])+"_"+Data[i]+".txt"
             output = open(output_file, 'w')
             for k in range(8):
                 if k!=3:
@@ -112,12 +111,12 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         k = assigned_k[l]
         print(str(i)+" "+str(j)+" "+str(k))
         #Create a new file
-        cmd = "cp "+cur_path+"/../Information/Graph/"+Q[j]+"/network"+Data[i]+".txt "+cur_path+"/../Temp/"+Q[j]+"_network"+Data[i]+"_"+str(thread_id)+".txt"
+        cmd = "cp "+cur_path+"/../Information/Graph/"+Q[j]+"/"+Data[i]+".txt "+cur_path+"/../Temp/Old"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
         shell = os.popen(cmd, 'r')
         shell.read()
         shell.close()
         #Collect the result for algorithm
-        cmd = "../../dw_python "+cur_path+"/../Code/R2TOld.py -I "+cur_path+"/../Temp/"+Q[j]+"_network"+Data[i]+"_"+str(thread_id)+".txt"
+        cmd = "python "+cur_path+"/../Code/R2TOld.py -I "+cur_path+"/../Temp/Old"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
         cmd = cmd+" -b 0.1 -e "+str(pow(2,k)*0.1)+" -G "+str(pow(max_degree[i],q_pow[j]))+" -p 10"
         shell = os.popen(cmd, 'r')
         res = shell.read()
@@ -130,7 +129,7 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         times[i][j][k] = times[i][j][k]+c
         shell.close()
         #Remove the new file
-        cmd = "rm "+cur_path+"/../Temp/"+Q[j]+"_network"+Data[i]+"_"+str(thread_id)+".txt"
+        cmd = "rm "+cur_path+"/../Temp/Old"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
         shell = os.popen(cmd, 'r')
         shell.read()
         shell.close()  

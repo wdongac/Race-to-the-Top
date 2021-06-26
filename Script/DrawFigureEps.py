@@ -31,14 +31,14 @@ def main(argv):
                 if i<2:
                     err_i.append([])
                     continue
-            path = cur_path+"/../Result/Graph/"+M[j]+"_"+Q[i]+"_network16.txt"
+            path = cur_path+"/../Result/Graph/"+M[j]+"_"+Q[i]+"_RoadnetPA.txt"
             res_i,err_ij = ReadData(path)
             err_i.append(err_ij)
         res.append(res_i)
         err.append(err_i)
     
     x=[0.1,0.2,0.4,0.8,1.6,3.2,6.4,12.8]
-    fig, axes = plt.subplots(1,4, figsize=(36, 6))
+    fig, axes = plt.subplots(1,4, figsize=(36, 5))
     
     axes[0].tick_params(axis='both', which='major', labelsize=15)
     axes[0].set_facecolor("white")
@@ -84,9 +84,6 @@ def main(argv):
     axes[2].tick_params(axis='both', which='major', labelsize=15)
     axes[2].set_facecolor("white")
     axes[2].axhline(y=res[2],ls="--",c='black',alpha=0.6,label='Query result')
-    axes[2].plot(x, err[2][0],linewidth = 2.5, linestyle = '-.',label='R2T',
-        marker = 's',markersize = 8,color=plt.cm.tab20c(0),
-        markeredgecolor=plt.cm.tab20c(0),markeredgewidth = 1,markerfacecolor=plt.cm.tab20c(0))
     axes[2].plot(x, err[2][1],linewidth = 2.5,linestyle = '-.',label='LP',
         marker = 's',markersize = 8,color=plt.cm.tab20c(12),
         markeredgecolor=plt.cm.tab20c(12),markeredgewidth = 2,markerfacecolor='w')
@@ -99,6 +96,9 @@ def main(argv):
     axes[2].plot(x, err[2][4],linewidth = 2.5,linestyle = '--',label='SDE',
         marker = 'v',markersize = 8,color=plt.cm.tab20b(8),
         markeredgecolor=plt.cm.tab20b(8),markeredgewidth = 2,markerfacecolor='w')
+    axes[2].plot(x, err[2][0],linewidth = 2.5, linestyle = '-.',label='R2T',
+        marker = 's',markersize = 8,color=plt.cm.tab20c(0),
+        markeredgecolor=plt.cm.tab20c(0),markeredgewidth = 1,markerfacecolor=plt.cm.tab20c(0))
     axes[2].set_yscale('log')
     axes[2].set_xscale('log')
     axes[2].set_title('Triangle counting',fontsize=23)
@@ -107,9 +107,6 @@ def main(argv):
     axes[3].tick_params(axis='both', which='major', labelsize=15)
     axes[3].set_facecolor("white")
     axes[3].axhline(y=res[3],ls="--",c='black',alpha=0.6,label='Query result')
-    axes[3].plot(x, err[3][0],linewidth = 2.5, linestyle = '-.',label='R2T',
-        marker = 's',markersize = 8,color=plt.cm.tab20c(0),
-        markeredgecolor=plt.cm.tab20c(0),markeredgewidth = 1,markerfacecolor=plt.cm.tab20c(0))
     axes[3].plot(x, err[3][1],linewidth = 2.5,linestyle = '-.',label='LP',
         marker = 's',markersize = 8,color=plt.cm.tab20c(12),
         markeredgecolor=plt.cm.tab20c(12),markeredgewidth = 2,markerfacecolor='w')
@@ -122,11 +119,14 @@ def main(argv):
     axes[3].plot(x, err[3][4],linewidth = 2.5,linestyle = '--',label='SDE',
         marker = 'v',markersize = 8,color=plt.cm.tab20b(8),
         markeredgecolor=plt.cm.tab20b(8),markeredgewidth = 2,markerfacecolor='w')
+    axes[3].plot(x, err[3][0],linewidth = 2.5, linestyle = '-.',label='R2T',
+        marker = 's',markersize = 8,color=plt.cm.tab20c(0),
+        markeredgecolor=plt.cm.tab20c(0),markeredgewidth = 1,markerfacecolor=plt.cm.tab20c(0))
     axes[3].set_yscale('log')
     axes[3].set_xscale('log')
     axes[3].set_title('Rectangle counting',fontsize=23)
     axes[3].set_xlabel("value of \u03B5",fontsize=23)
-    axes[3].legend(bbox_to_anchor=(-3.7, 0.38, 1, 1),fontsize=19,ncol=3, facecolor="white")
+    axes[3].legend(bbox_to_anchor=(-3.7, 0.46, 1, 1),fontsize=19,ncol=3, facecolor="white")
     plt.savefig(cur_path+"/../Figure/Eps.pdf")  
 
 if __name__ == "__main__":

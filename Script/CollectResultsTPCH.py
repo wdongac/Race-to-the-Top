@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
 import os
@@ -9,7 +8,7 @@ manager = multiprocessing.Manager()
 
 def main(argv):
     repeat_time = 10
-    threads_num = 5
+    threads_num = 4
     global S
     global Q
     global GS
@@ -23,11 +22,10 @@ def main(argv):
     GS = manager.list()
     SJ = manager.list()
     Q = [5,8,21,3,12,20,10,7,11,18]
-    Q = [5]
     S = ["3"]
-    GS = [100000,1000000,1000000,1000000,1000000,1000000,1000000,100000000,1000000,100000000]
-    for i in range(len(GS)):
-        GS[i] = GS[i]/8
+    GS = []
+    for i in range(len(Q)):
+        GS.append(1000000)
     SJ = [1,1,1,0,0,0,0,1,0,0]
     queries = manager.list()
     times = manager.list()
@@ -76,15 +74,14 @@ def main(argv):
         threads[i].join()
     for i in range(len(S)):
         for j in range(len(Q)):
-            output_file = cur_path+"/../Result/TPCH/R2T_"+str(Q[j])+".txt"
+            output_file = cur_path+"/../Result/TPCH/R2T_Q"+str(Q[j])+".txt"
             output = open(output_file, 'w')
             for k in range(8):
-                print(str(i)+" "+str(j)+" "+str(k))
                 times[i][j][k] /= repeat_time
                 results[i][j][k].sort()
                 res = sum(results[i][j][k])-results[i][j][k][0]-results[i][j][k][1]-results[i][j][k][repeat_time-1]-results[i][j][k][repeat_time-2]
                 res = res/(repeat_time-4)
-                output.write(str(pow(2,k))+" "+str(queries[i][j])+" "+str(res)+" "+str(times[i][j][k])+"\n")
+                output.write(str(pow(2,k)*0.1)+" "+str(queries[i][j])+" "+str(res)+" "+str(times[i][j][k])+"\n")
                 
                 
       
@@ -108,11 +105,11 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         shell.read()
         shell.close()
         #Collect the result for algorithm
-        cmd = cur_path+"/../../dw_python "+cur_path+"/../Code/R2T"
+        cmd = cur_path+"python "+cur_path+"/../Code/R2T"
         if SJ[j]==0:
             cmd = cmd+"SJF"
         cmd = cmd+".py -I "+cur_path+"/../Temp/Q"+str(Q[j])+"_"+str(thread_id)+".txt"
-        cmd = cmd+" -b 0.1 -e "+str(pow(2,k)*0.1)+" -G "+str(GS[j]*pow(2,i+3))
+        cmd = cmd+" -b 0.1 -e "+str(pow(2,k)*0.1)+" -G "+str(GS[j])
         if SJ[j]==1:
             cmd = cmd+" -p 10"
         shell = os.popen(cmd, 'r')

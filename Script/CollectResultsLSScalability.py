@@ -8,20 +8,24 @@ epsilons = [0.8]
 queries = ["Q3", "Q12", "Q20"]
 scales = ["_0", "_1", "_2", "_3", "_4", "_5", "_6"]
 
-GS_base = 1000000.0 / 8.0
+GS = 1000000.0
 
 def main(argv):
 	for query in queries:
+		cur_path = os.getcwd()
+
+		output_file = open(cur_path + "/../Result/TPCH/LS_" + query + "_Scalability.txt", 'w')
+
 		for l_scale in range(len(scales)):
 			scale = scales[l_scale]
-			GS = GS_base * math.pow(2, l_scale)
 
 			for epsilon in epsilons:
+				real_ans = 0
 				sum_time = 0
 				errors = []
 
 				cur_path = os.getcwd()
-				cmd = cur_path + "/../../jr_python " + cur_path + "/../Code/LS.py -I " + cur_path + "/../Information/TPCH/" + query + scale + ".txt -e " + str(epsilon) + " -G " + str(int(GS))
+				cmd = "python " + cur_path + "/../Code/LS.py -I " + cur_path + "/../Information/TPCH/" + query + scale + ".txt -e " + str(epsilon) + " -G " + str(int(GS))
 
 				for i in range(repeat_times):
 					shell = os.popen(cmd, 'r')
@@ -32,12 +36,13 @@ def main(argv):
 					b = float(res[5])
 					c = float(res[7])
 		
+					real_ans = int(a)
 					errors.append(abs(a - b))
 					sum_time += c
 
 				errors.sort()
 
-				print(query, scale, epsilon, GS, sum(errors[6 : 24]) / 18, sum_time/repeat_times, flush=True)
+				output_file.write(str(math.pow(2, l_scale - 3)) + " " + str(real_ans) + " " + str(sum(errors[int(repeat_times * 0.2) : int(repeat_times * 0.8)]) / int(repeat_times * 0.6)) + " " + str(sum_time/repeat_times) + "\n")
 
 if __name__ == "__main__":
-		main(sys.argv[1:])
+	main(sys.argv[1:])
