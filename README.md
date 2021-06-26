@@ -79,9 +79,9 @@ Here are dependencies used in python codes:
 * `psycopg2`
 
 ### Download Data
-Download two data packages ([Graph](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing) and [TPCH](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing)) and unzip them in `./Data`.
+Download two data packages ([Graph](https://drive.google.com/file/d/18qv_ivmYpbA3qgs0elVcnepOlGC5Wd6a/view?usp=sharing) and [TPCH](https://drive.google.com/file/d/1hXTv24oAi56Ax0gdTQo4Vvx1ZzSg0Kz1/view?usp=sharing)) and unzip them in `./Data`.
 
-Download two packages containing the relationships between base table tuples and join results ([Graph](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing) and [TPCH](https://drive.google.com/file/d/1DdFp7jQK1gt8VLUhrv0H4YrvpjcDCiDI/view?usp=sharing)) and unzip them in `./Information`.
+Download two packages containing the relationships between base table tuples and join results ([Graph](https://drive.google.com/file/d/17BgDq_4Jt7QMAVdLMvR-dC5hUrfQiNOL/view?usp=sharing) and [TPCH](https://drive.google.com/file/d/18ZbpVyxOMM7tKmi54qBf44BUTgfboXmI/view?usp=sharing)) and unzip them in `./Information`.
 
 ### Create PostgreSQL Database
 To create an empty PostgreSQL database, for example, named "Deezer", run
