@@ -166,6 +166,10 @@ There are five experiements for R2T. 1) collecting the time of collecting relati
 To implement above, we first go to `./Script`, for 1), run `CollectExtractInfoTimeGraph.py` and  `CollectExtractInfoTimeTPCH.py`; for 2), run `CollectResultsGraph.py` and `CollectResultsTPCH.py`; for 3), run `CollectResultsTPCHScalability.py`; for 4), run `CollectResultsTPCHGS.py`.
  
 ### Naive Truncation with Smooth Sensitivity
+First create a database for the graph, named "NT_" +  graph name, for these experiments to collect the real counts after truncations. For example, for Deezer, run
+```
+createdb NT_Deezer;
+```
 To collect the experimental results of naive truncation with smooth sensitivity with settings in the paper, go to `./Script` and run `CollectResultsNT.py`. There is one parameter
  - `-G`: the name of graph. The given choices include Deezer, Amazon1, Amazon2, RoadnetPA and RoadnetCA;
 
@@ -175,6 +179,10 @@ python CollectResultsNT.py -G Deezer
 ```
 
 ### Smooth Distance Estimator
+First create a database for the graph named "SDE_" +  graph name. For example,
+```
+createdb SDE_Deezer;
+```
 To collect the experimental results of smooth distance estimator with settings in the paper, go to `./Script` and run `CollectResultsSDE.py`. There is one parameter
  - `-G`: the name of graph. The given choices include Deezer, Amazon1, Amazon2, RoadnetPA and RoadnetCA;
 
