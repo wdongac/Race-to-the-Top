@@ -17,10 +17,7 @@
 	* [Local-sensitivity based Mechanism](#local-sensitivity-based-mechanism)
 
 ## About The Project
-Raise to the Top (R2T) is for answering conjunctive query with sum aggregation over the database with foreign key constraints. This work has been submitted to SIGMOD 2022. The main task of this project is to demo the R2T system and the experiments in paper of SIGMOD 2022. More precisely,
-+ Demo the R2T system;
-+ Demo baseline algorithms: naive truncation with smooth sensitivity (NT), smooth distance estimator (SDE), LP-based mechanism (LP), recursive mechansim (RM) and local-sensitivity based mechanism (LS).
-+ Demo how to collect experimental results shown in our paper.
+Raise to the Top (R2T) is for answering conjunctive query with sum aggregation over the database with foreign key constraints. This work has been submitted to SIGMOD 2022. The main task of this project is to demo the R2T system and the experiments in paper of SIGMOD 2022.
 
 The file structure is as below
 ```
