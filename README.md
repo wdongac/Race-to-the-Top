@@ -117,15 +117,15 @@ Here, we implement a demo version for R2T system with PostgreSQL. Currently, the
 
 To run the system, go to `./Script` and run `System.py`. There are eight parameters
  - `-D`: the name of PostgreSQL database;
- - `-Q`: the path of input query file. Here, we provide the experimental queries used in the paper in `./Query`;
+ - `-Q`: the path of input query file;
  - `-P`: the path of file containing the primary private relations;
- - `-K`: the path of file containing the primary key of the primary private relation; Here, we also provide the ones used in the paper in `./Query`;
+ - `-K`: the path of file containing the primary key of the primary private relation; 
  - `-e`: privacy budget epsilon;
  - `-b`: the parameter beta, which controls the probablity of large error happening;
  - `-G`: the predefined global sensitivity.
  - `-p`: the number of threads used.
 
-For example, we run the system with `Q5`
+We provide several demo queries in `./TestSystem`. For example, we run the system with `Q5`
 ```
 python System.py -D sc_3 -e 0.8 -b 0.1 -G 1000000 -p 10 -Q ../TestSystem/Q18.txt -K ../TestSystem/Q18_key.txt -P ../TestSystem/Q18_private_relation.txt
 ```
