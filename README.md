@@ -41,7 +41,7 @@ project
 ```
 `./Code` stores the codes.
 
-`./Data` stores the relations of the graph and TPCH datasets.
+`./Data` stores graph and TPCH datasets.
 
 `./Figure` stores the figures used in the paper.
 
@@ -50,7 +50,7 @@ project
 
 `./Query` stores the queries used in the experiments of the paper.
 
-`./Result` stores the experimental results of the paper.
+`./Result` stores the experimental results.
 * `./Result/Graph` and `./Result/TPCH` store the results for sub-graph counting querie and TPCH querys repectively.
 
 `./Script` stores the scripts used in the experiments of the paper.
@@ -90,7 +90,7 @@ To create an empty PostgreSQL database, for example, named "Deezer", run
 createdb Deezer;
 ```
 
-Here, we need five databases for graph dataset: `Deezer`, `Amazon1`, `Amazon2`, `RoadnetPA` and `RoadnetCA`. For TPCH datase, we use `7` different scales: `0.125,0.25,..,8` which are marked as `_0,_1,..,_6`, For each scale, we create two databases: `sc` and `so`. `sc` has `Customer` and `Supplier` as the primary private relations while `so` has `Orders` and `Supplier` as the primary private relations. For example, for scale `_3`, we create `sc_3` and `so_3`.
+Here, we need five databases for the graph datasets: `Deezer`, `Amazon1`, `Amazon2`, `RoadnetPA` and `RoadnetCA`. For TPCH data, we use `7` different scales: `0.125,0.25,..,8` which are marked as `_0,_1,..,_6`, For each scale, we create two databases: `sc` and `so`. `sc` has `Customer` and `Supplier` as the primary private relations while `so` has `Orders` and `Supplier` as the primary private relations. For example, for scale `_3`, we create `sc_3` and `so_3`. The reason why we need to consider these two cases separately is that, when we implement the experiments, we only support self-join queries with single primary private relation thus we need to create a new ID table and assign the IDs for the tuples in designated primary private relations. However, this issue has been addressed in our system, which means you can use either database in our system demo.
 
 #### Import and Clean Data
 To import/clean graph data into PostgreSQL database, go to `./Script` and run `ProcessGraphData.py`. There are three parameters
