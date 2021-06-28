@@ -41,8 +41,6 @@ project
 ```
 `./Code` stores the codes.
 `./Data` stores the relations of the graph and TPCH datasets.
-* `./Information/Graph` and `./Information/TPCH` store the relations for graph and TPCH datasets repectively. Only scale \_0 is uploaded here. Datasets with other scales, i.e. \_1 \~ \_6, can be found at ???.
-
 `./Figure` stores the figures used in the paper.
 `./Information` stores the information between base table tuples and joined results for all queries.
 * `./Information/Graph` and `./Information/TPCH` store the information for sub-graph counting querie and TPCH querys repectively.
