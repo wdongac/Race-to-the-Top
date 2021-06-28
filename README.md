@@ -22,7 +22,7 @@ Raise to the Top (R2T) is for answering conjunctive query with sum aggregation o
 The file structure is as below
 ```
 project
-│   README.md
+│  
 └───Code
 └───Data
 │   └───Graph
