@@ -90,6 +90,8 @@ To create an empty PostgreSQL database, for example, named "Deezer", run
 createdb Deezer;
 ```
 
+Here, we need five databases for graph dataset: `Deezer`, `Amazon1`, `Amazon2`, `RoadnetPA` and `RoadnetCA`. For TPCH datase, we use `7` different scales: `0.125,0.25,..,8` which are marked as `_0,_1,..,_6`, For each scale, we create two databases: `sc` and `so`. `sc` has `Customer` and `Supplier` as the primary private relations while `so` has `Orders` and `Supplier` as the primary private relations. For example, for scale `_3`, we create `sc_3` and `so_3`.
+
 #### Import and Clean Data
 To import/clean graph data into PostgreSQL database, go to `./Script` and run `ProcessGraphData.py`. There are three parameters
  - `-d`: the name of graph dataset;
@@ -102,7 +104,7 @@ To import/clean TPCH data into PostgreSQL database, go to `./Script` and run `Pr
  - `-m`: the option of importing(0)/cleaning(1) data in the database;
  - `-r`: the path of file containing the name(s) of the primary private relation(s). The ones used in the paper can be found in `./Query`;
 
-For example, to import TPCH dataset with scale \_0 into database named "sc\_0" having primary private relations SUPPLIER and CUSTOMER, run
+For example, to import TPCH dataset with scale `_0` into `sc\_0` database, run
 ```sh
 python ProcessTPCHData.py -d _0 -D sc_0 -m 0 -r ../Query/sc.txt
 ```
@@ -148,6 +150,7 @@ For example,
 ```
 python ExtractInfo.py -D RoadnetPA -Q ../Query/triangle.txt -P node -K ../Query/triangle_key.txt -O ../Information/Graph/triangle/RoadnetCA.txt
 ```
+Such information for the queries used in paper have already been collected and store in `./Information/Graph` and `./Information/TPCH`. One notice is that, recursive mechanism and LP-based mechanism also need such information as the input.
 
 The `R2T.py` has five parameters
  - `-I`: the path of file containing relationship between base table tuples and join results;
