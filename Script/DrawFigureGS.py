@@ -33,7 +33,7 @@ def main(argv):
     for i in range(8):
         x.append(GS)
         GS*=10
-    fig, axes = plt.subplots(1,3, figsize=(24, 3))
+    fig, axes = plt.subplots(1,3, figsize=(24, 2.6))
     
     axes[0].tick_params(axis='both', which='major', labelsize=15)
     axes[0].set_facecolor("white")

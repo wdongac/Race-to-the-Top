@@ -59,7 +59,7 @@ def main(argv):
     axes[0].set_xscale('log')
     axes[0].set_title('Edge counting',fontsize=23)
     axes[0].set_ylabel("Error Level",fontsize=23)
-    axes[0].set_xlabel("value of \u03B5",fontsize=23)
+    axes[0].set_xlabel(r"value of $\epsilon$",fontsize=23)
     
     axes[1].tick_params(axis='both', which='major', labelsize=15)
     axes[1].set_facecolor("white")
@@ -79,7 +79,7 @@ def main(argv):
     axes[1].set_yscale('log')
     axes[1].set_xscale('log')
     axes[1].set_title('Length-2 path counting',fontsize=23)
-    axes[1].set_xlabel("value of \u03B5",fontsize=23)
+    axes[1].set_xlabel(r"value of $\epsilon$",fontsize=23)
     
     axes[2].tick_params(axis='both', which='major', labelsize=15)
     axes[2].set_facecolor("white")
@@ -102,7 +102,7 @@ def main(argv):
     axes[2].set_yscale('log')
     axes[2].set_xscale('log')
     axes[2].set_title('Triangle counting',fontsize=23)
-    axes[2].set_xlabel("value of \u03B5",fontsize=23)
+    axes[2].set_xlabel(r"value of $\epsilon$",fontsize=23)
 
     axes[3].tick_params(axis='both', which='major', labelsize=15)
     axes[3].set_facecolor("white")
@@ -125,7 +125,7 @@ def main(argv):
     axes[3].set_yscale('log')
     axes[3].set_xscale('log')
     axes[3].set_title('Rectangle counting',fontsize=23)
-    axes[3].set_xlabel("value of \u03B5",fontsize=23)
+    axes[3].set_xlabel(r"value of $\epsilon$",fontsize=23)
     axes[3].legend(bbox_to_anchor=(-3.7, 0.46, 1, 1),fontsize=19,ncol=3, facecolor="white")
     plt.savefig(cur_path+"/../Figure/Eps.pdf")  
 
