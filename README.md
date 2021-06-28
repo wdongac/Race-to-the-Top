@@ -40,6 +40,7 @@ project
 └───TestSystem
 ```
 `./Code` stores the codes.
+
 `./Data` stores the relations of the graph and TPCH datasets.
 `./Figure` stores the figures used in the paper.
 `./Information` stores the information between base table tuples and joined results for all queries.
