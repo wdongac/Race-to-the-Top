@@ -131,25 +131,25 @@ python System.py -D sc_3 -e 0.8 -b 0.1 -G 1000000 -p 10 -Q ../TestSystem/Q18.txt
 ```
 
 ## Demo Collecting Experimental Results
-Notice that, for some experiments that do not have very much randomness (do not need to randomly select parameter) like R2T, recursive mechanism, we only run each experiments with 10 times.
+Notice that, for some experiments that do not have very much randomness (do not need to randomly select parameter) like R2T, RM, we only repeat each experiments with 10 times.
 
 ### R2T Algorithm
-We implement R2T algorithm for both self-join-free queries and self-join queries, which are `./Code/R2T.py` and `./Code/R2TSJF.py`. Both two programs has the relationships between base table's tuples and join results as the input, which can be collected by `./Code/ExtractInfo.py`.
+We implement R2T algorithm for both self-join-free queries and self-join queries, which are `./Code/R2T.py` and `./Code/R2TSJF.py`. Both two programs have the relationships between base table's tuples and join results as the input, which can be collected by `./Code/ExtractInfo.py`.
 
-The `ExtractInfo.py` has the parameters
+The `ExtractInfo.py` has five parameters
  - `-D`: the name of PostgreSQL database;
  - `-Q`: the path of input query file. Here, we provide the experimental queries used in the paper in `./Query`;
  - `-P`: the name of primary private relation;
  - `-K`: the path of file containing the primary key of the primary private relation; Here, we also provide the ones used in the paper in `./Query`;
  - `-O`: the path of output file;
-Note that, this program only supports the queries with single primary relation but in the system above, the queries with multiple primary relations are also supported. For the output file, the first column is the function value for the join result and the other columns are the ids of base table tuples contributing to the jooin result.
+Note that, this program only supports the queries with single primary relation but in the system above, the queries with multiple primary relations are supported. For the output file, the first column is the function value for the join result and the other columns are the IDs of base table tuples contributing to the join result.
 
 For example,
 ```
 python ExtractInfo.py -D RoadnetPA -Q ../Query/triangle.txt -P node -K ../Query/triangle_key.txt -O ../Information/Graph/triangle/RoadnetCA.txt
 ```
 
-The `R2T.py` has the parameters
+The `R2T.py` has five parameters
  - `-I`: the path of file containing relationship between base table tuples and join results;
  - `-e`: privacy budget epsilon;
  - `-b`: the parameter beta, which controls the probablity of large error happening;
@@ -160,11 +160,11 @@ For example,
 python R2T.py -I ../Information/Graph/triangle/RoadnetCA.txt -e 0.8 -b 0.1 -p 10  -G 256
 ```
 
-The `R2TSJF.py` has same parameters except no `-p`. Besides, one notice is that, we use base 5.5 instead of 2 in these two algorithms. That has no effect on any result of paper.
+The `R2TSJF.py` has same parameters except no `-p` parameter. Besides, one notice is that, we use base 5.5 instead of 2 in these two algorithms, which will not affect any theoretical result in the paper.
 
-There are five experiements for R2T. 1) collecting the time of collecting relationships between base table tuples and join results for both sub-graph counting queries and TPCH queries; 2) experiments for sub-graph counting queries and TPCH queries with various epsilon; 3) experiments for TPCH queries with different scalability; 4) experiments for TPCH queries with different GS.
+There are five experiements for R2T. 1) collecting the time of extracting relationships between base table tuples and join results for both sub-graph counting queries and TPCH queries; 2) experiments for sub-graph counting queries and TPCH queries with various epsilon; 3) experiments for TPCH queries with different scalability; 4) experiments for TPCH queries with different GS.
 
-To implement above, we first go to `./Script`, for 1), run `CollectExtractInfoTimeGraph.py` and  `CollectExtractInfoTimeTPCH.py`; for 2), run `CollectResultsGraph.py` and `CollectResultsTPCH.py`; for 3), run `CollectResultsTPCHScalability.py`; for 4), run `CollectResultsTPCHGS.py`.
+To implement above, we first go to `./Script` and for 1), run `CollectExtractInfoTimeGraph.py` and  `CollectExtractInfoTimeTPCH.py`; for 2), run `CollectResultsGraph.py` and `CollectResultsTPCH.py`; for 3), run `CollectResultsTPCHScalability.py`; for 4), run `CollectResultsTPCHGS.py`.
  
 ### Naive Truncation with Smooth Sensitivity
 First create a database for the graph, named "NT_" +  graph name, for these experiments to collect the real counts after truncations. For example, for Deezer, run
