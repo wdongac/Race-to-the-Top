@@ -105,7 +105,7 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         shell.read()
         shell.close()
         #Collect the result for algorithm
-        cmd = cur_path+"python "+cur_path+"/../Code/R2T"
+        cmd = "python "+cur_path+"/../Code/R2T"
         if SJ[j]==0:
             cmd = cmd+"SJF"
         cmd = cmd+".py -I "+cur_path+"/../Temp/Q"+str(Q[j])+"_"+str(thread_id)+".txt"

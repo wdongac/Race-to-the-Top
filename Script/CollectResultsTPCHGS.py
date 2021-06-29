@@ -16,7 +16,7 @@ def main(argv):
             print(str(i)+" "+str(j))
             GS = GS_L[i]*pow(10,j)
             results = []
-            cmd = cur_path+"python "+cur_path+"/../Code/R2TSJF.py -I "+cur_path+"/../Information/TPCH/Q"+str(Q[i])+"_3.txt -b 0.1 -e 0.8 -G "+str(GS)
+            cmd = "python "+cur_path+"/../Code/R2TSJF.py -I "+cur_path+"/../Information/TPCH/Q"+str(Q[i])+"_3.txt -b 0.1 -e 0.8 -G "+str(GS)
             for k in range(repeat_time):
                 shell = os.popen(cmd, 'r')
                 res = shell.read()

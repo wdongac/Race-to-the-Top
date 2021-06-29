@@ -103,7 +103,7 @@ def ThreadWork(thread_id,assigned_i,assigned_j,assigned_k,cur_path):
         shell.read()
         shell.close()
         #Collect the result for algorithm
-        cmd = cur_path+"python "+cur_path+"/../Code/R2T.py -I "+cur_path+"/../Temp/"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
+        cmd = "python "+cur_path+"/../Code/R2T.py -I "+cur_path+"/../Temp/"+Q[j]+"_"+Data[i]+"_"+str(thread_id)+".txt"
         cmd = cmd+" -b 0.1 -e "+str(pow(2,k)*0.1)+" -G "+str(pow(max_degree[i],q_pow[j]))+" -p 10"
         shell = os.popen(cmd, 'r')
         res = shell.read()

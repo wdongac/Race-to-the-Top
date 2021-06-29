@@ -27,7 +27,7 @@ def main(argv):
         elif opt in ("-e", "--Epsilon"):
             eps = float(arg)
     cur_path=os.getcwd()
-    cmd = cur_path+"python "+cur_path+"/../Code/RM.py -e "+str(eps)+" -d 0.1 -I "+cur_path+"/../Information/Graph/"+Q[j]+"/"+Data[i]+".txt"
+    cmd = "python "+cur_path+"/../Code/RM.py -e "+str(eps)+" -d 0.1 -I "+cur_path+"/../Information/Graph/"+Q[j]+"/"+Data[i]+".txt"
     result = []
     time = 0
     for i in range(10):
