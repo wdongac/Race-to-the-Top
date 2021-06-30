@@ -163,7 +163,7 @@ For example,
 python R2T.py -I ../Information/Graph/triangle/RoadnetCA.txt -e 0.8 -b 0.1 -p 10  -G 256
 ```
 
-The `R2TSJF.py` has the same parameters except no `-p` parameter. Besides, one notice is that we also optimize the base used in Theorem 5.1. In the paper, we use 2 while it can prove the optimal one is e (by optimizing the error bound in Theorem 5.1). Here, we use 2e for its better practical performance. Please note that any constant base will not affect any theoretical result in the paper.
+The `R2TSJF.py` has the same parameters except no `-p` parameter. Besides, one notice is that we also optimize the base used in Theorem 5.1. In the paper, we use 2 while it can be proven the optimal one is e (by optimizing the error bound in Theorem 5.1). Here, we use 2e for its better practical performance. Please note that any constant base will not affect any theoretical result in the paper.
 
 There are five experiments for R2T. 1) collecting the time of extracting relationships between base table tuples and join results for both sub-graph counting queries and TPCH queries; 2) experiments for sub-graph counting queries and TPCH queries with various epsilon; 3) experiments for TPCH queries with different scalability; 4) experiments for TPCH queries with different GS.
 
