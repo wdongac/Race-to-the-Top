@@ -8,7 +8,7 @@ manager = multiprocessing.Manager()
 
 def main(argv):
     repeat_time = 10
-    threads_num = 4
+    threads_num = 5
     global S
     global Q
     global GS

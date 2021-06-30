@@ -163,7 +163,7 @@ For example,
 python R2T.py -I ../Information/Graph/triangle/RoadnetCA.txt -e 0.8 -b 0.1 -p 10  -G 256
 ```
 
-The `R2TSJF.py` has the same parameters except no `-p` parameter.
+The `R2TSJF.py` has the same parameters except no `-p` parameter. Besides, one notice is that we use base 5.5 instead of 2 in these two algorithms, which will not affect any theoretical result in the paper.
 
 There are five experiments for R2T. 1) collecting the time of extracting relationships between base table tuples and join results for both sub-graph counting queries and TPCH queries; 2) experiments for sub-graph counting queries and TPCH queries with various epsilon; 3) experiments for TPCH queries with different scalability; 4) experiments for TPCH queries with different GS.
 
