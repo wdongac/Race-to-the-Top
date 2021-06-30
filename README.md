@@ -14,7 +14,7 @@
 	* [Smooth Distance Estimator](#smooth-distance-estimator)
 	* [LP-based Mechanism](#lp-based-mechanism)
 	* [Recursive Mechansim](#recursive-mechanism)
-	* [Local-sensitivity based Mechanism](#local-sensitivity-based-mechanism)
+	* [Local-sensitivity Based Mechanism](#local-sensitivity-based-mechanism)
 
 ## About The Project
 Raise to the Top (R2T) is for answering SJPA over the database with foreign key constraints. This work has been submitted to SIGMOD 2022. The main task of this project is to demo the R2T system and the experiments in that paper.
@@ -218,7 +218,7 @@ For example,
 python CollectResultsRM.py -Q 0 -D 0 -e 0.8
 ```
 
-### Local-sensitivity based Mechanism
+### Local-sensitivity Based Mechanism
 There are three types of experiments for local-sensitivity based mechanism in the paper, 1) changing privacy budget epsilon, 2) changing the scale of the database, and 3) changing predefined global sensitivity.
 
 For 1), go to `./Script` and run `CollectResultsLS.py`. For 2), run `CollectResultsLSScalability.py` in `./Script`, and for 3) run `CollectResultsLSGS.py` in `./Script`.
