@@ -130,6 +130,10 @@ def RunAlgorithm():
     global early_stops
     global global_max
     #Base of Log function
+    #Besides, one notice is that we also optimize the base used in Theorem 5.1. 
+    #In the paper, we use 2 while it can be proven the optimal one is e (by optimizing the error bound in Theorem 5.1). 
+    #Here, we use 2e for its better practical performance. 
+    #Please note any theoretical result in the paper will not be affected as long as the base is still a constant number.
     base = 5.5
     #The number of all tau's
     max_i = int(math.log(global_sensitivity,base))
