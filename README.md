@@ -1,4 +1,4 @@
-# Demo of Raise to the TOP
+# Demo of Race to the TOP
 
 ## Table of Contents
 * [About the Project](#about-the-project)  
@@ -17,7 +17,7 @@
 	* [Local-sensitivity Based Mechanism](#local-sensitivity-based-mechanism)
 
 ## About The Project
-Raise to the Top (R2T) is for answering SJPA over the database with foreign key constraints. This work has been submitted to SIGMOD 2022. The main task of this project is to demo the R2T system and the experiments in that paper.
+Race to the Top (R2T) is for answering SJPA over the database with foreign key constraints. This work has been submitted to SIGMOD 2022. The main task of this project is to demo the R2T system and the experiments in that paper.
 
 The file structure is as below
 ```
