@@ -9,15 +9,15 @@
     * [Create PostgreSQL Database](#create-postgresql-database)
 * [Demo System](#demo-system)
 * [Demo Collecting Experimental Results](#demo-collecting-experimental-results)
-	* [R2T Algorithm](#r2t-algorithm)
-	* [Naive Truncation with Smooth Sensitivity](#naive-truncation-with-smooth-sensitivity)
-	* [Smooth Distance Estimator](#smooth-distance-estimator)
-	* [LP-based Mechanism](#lp-based-mechanism)
-	* [Recursive Mechansim](#recursive-mechanism)
-	* [Local-sensitivity Based Mechanism](#local-sensitivity-based-mechanism)
+    * [R2T Algorithm](#r2t-algorithm)
+    * [Naive Truncation with Smooth Sensitivity](#naive-truncation-with-smooth-sensitivity)
+    * [Smooth Distance Estimator](#smooth-distance-estimator)
+    * [LP-based Mechanism](#lp-based-mechanism)
+    * [Recursive Mechansim](#recursive-mechanism)
+    * [Local-sensitivity Based Mechanism](#local-sensitivity-based-mechanism)
 
 ## About The Project
-Race to the Top (R2T) is for answering SJPA over the database with foreign key constraints. This work has been submitted to SIGMOD 2022. The main task of this project is to demo the R2T system and the experiments in that paper.
+Race to the Top (R2T) is for answering SJPA over the database with foreign key constraints. This work has been accpeted by SIGMOD 2022. Paper is avaliable [here](https://www.cse.ust.hk/~yike/R2T.pdf). The main task of this project is to demo the R2T system and the experiments in that paper.
 
 The file structure is as below
 ```
@@ -222,3 +222,4 @@ python CollectResultsRM.py -Q 0 -D 0 -e 0.8
 There are three types of experiments for local-sensitivity based mechanism in the paper, 1) changing privacy budget epsilon, 2) changing the scale of the database, and 3) changing predefined global sensitivity.
 
 For 1), go to `./Script` and run `CollectResultsLS.py`. For 2), run `CollectResultsLSScalability.py` in `./Script`, and for 3) run `CollectResultsLSGS.py` in `./Script`.
+
