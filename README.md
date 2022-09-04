@@ -1,4 +1,4 @@
-# Demo of Race to the TOP
+# Demo of Race to the Top
 
 ## Table of Contents
 * [About the Project](#about-the-project)  
