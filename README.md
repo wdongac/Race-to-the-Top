@@ -104,7 +104,7 @@ To import/clean TPCH data into PostgreSQL database, go to `./Script` and run `Pr
  - `-m`: the option of importing(0)/cleaning(1) data in the database;
  - `-r`: the path of file containing the name(s) of the primary private relation(s). The ones used in the paper can be found in `./Query`;
 
-For example, to import TPCH dataset with scale `_0` into `sc\_0` database, run
+For example, to import TPCH dataset with scale `_0` into `sc_0` database, run
 ```sh
 python ProcessTPCHData.py -d _0 -D sc_0 -m 0 -r ../Query/sc.txt
 ```
